@@ -20,10 +20,12 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "crumby.gemspec",
     "lib/crumby.rb",
     "spec/crumby_spec.rb",
     "spec/spec_helper.rb"
@@ -31,7 +33,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/phatworx/crumby}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.1}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{Easy breadcrumb for rails}
   s.test_files = [
     "spec/crumby_spec.rb",

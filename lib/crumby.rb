@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Crumby
 
-  class Item < Struct.new(:link, :route, :options)
+  class Item < Struct.new(:label, :route, :options)
   end
 
   module Helper

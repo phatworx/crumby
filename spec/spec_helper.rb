@@ -14,6 +14,7 @@ if ENV['COVERAGE']
   end
 end
 
+require "active_support/all"
 require 'crumby'
 
 # Requires supporting files with custom matchers and macros, etc,

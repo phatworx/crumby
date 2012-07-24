@@ -1,6 +1,8 @@
 # encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require "active_support/all"
+
+class DummyRenderer < Crumby::Renderer::Haml
+end
 
 class DummyModelName
   def human
@@ -16,10 +18,6 @@ end
 
 describe Crumby::Breadcrumbs do
   let(:breadcrumbs) { Crumby::Breadcrumbs.new }
-
-  describe "#new" do
-
-  end
 
   describe "#add 10 breadcrumbs" do
     before :each do
@@ -104,28 +102,44 @@ describe Crumby::Breadcrumbs do
     end
   end
 
-  describe "#list" do
+  describe "#items" do
     subject { breadcrumbs.items }
 
     it { should be_an Array }
 
-    context "have no items" do
+    context "have no item" do
       its(:count) { should be_zero }
     end
 
-    context "have some items" do
+    context "have on item" do
       subject { breadcrumbs.add :test }
       its(:count) { should_not be_zero }
     end
   end
 
   describe '#renderer' do
+
     subject { breadcrumbs }
+
     context "without an arguments" do
-      it "should return a renderer" do
-        Crumby::Renderer.default_renderer.should_receive(:new).
-          with(subject)#.and_return(Crumby::Renderer.default_renderer.new(subject))
+      it "should return default renderer" do
+        Crumby::Renderer.default_renderer.should_receive(:new).with(subject)
         subject.send(:renderer)
+      end
+    end
+
+    context "with a DummyRenderer renderer" do
+      let(:renderer) { DummyRenderer }
+      it "should return the DummyRenderer renderer" do
+        renderer.should_receive(:new).with(subject)
+        subject.send(:renderer, renderer)
+      end
+    end
+
+    context "with a String" do
+      let(:renderer) { "String" }
+      it "raise an argument Error" do
+        expect { subject.send(:renderer, renderer) }.to raise_error(ArgumentError)
       end
     end
 
@@ -135,12 +149,26 @@ describe Crumby::Breadcrumbs do
 
   describe "#render" do
     subject { breadcrumbs }
+
+    let(:rendered) { stub :rendered }
+    let(:renderer) { stub :renderer }
+
+    before :each do
+      renderer.should_receive(:render).with(kind_of(Hash)).and_return(rendered)
+    end
+
     context "without any arguments" do
-      #Crumby::Renderer.default_renderer.should_receive(:new).
-      #  with(subject).and_return(Crumby::Renderer.default_renderer.new(subject))
-      # it "should call default renderer" do
-      #   subject.render
-      # end
+      it "should call renderer with nil and return rendered" do
+        subject.should_receive(:renderer).with(nil).and_return(renderer)
+        subject.render.should eq rendered
+      end
+    end
+
+    context "with custom renderer" do
+      it "should call renderer with custom renderer and return rendered" do
+        subject.should_receive(:renderer).with(renderer).and_return(renderer)
+        subject.render(renderer: renderer).should eq rendered
+      end
     end
 
   end

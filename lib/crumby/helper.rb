@@ -24,7 +24,8 @@ module Crumby
 
     def breadcrumbs(*args)
       options = args.extract_options!
-      crumbs(args.first || :default).render(options)
+      scope = args.first || :default
+      crumbs(scope).render(options)
     end
 
   end

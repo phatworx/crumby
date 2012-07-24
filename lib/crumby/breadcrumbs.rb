@@ -48,14 +48,13 @@ module Crumby
 
     def render(*args)
       options = args.extract_options!
-      renderer = renderer(options[:renderer])
-      renderer.render
+      renderer_instance = renderer(options[:renderer])
+      renderer_instance.render(options)
     end
-
-    private
 
     def renderer(renderer = nil)
       renderer_class = renderer || Renderer.default_renderer
+      raise ArgumentError if not renderer_class.class == Class or not renderer_class.ancestors.include? Crumby::Renderer::Base
       renderer_class.new(self)
     end
 

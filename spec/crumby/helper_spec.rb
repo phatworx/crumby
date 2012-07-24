@@ -7,86 +7,68 @@ class DummyController
 end
 
 describe Crumby::Helper do
-  # let(:controller) { DummyController.new }
+  let(:controller) { DummyController.new }
 
-  # describe "#breadcrumb" do
-  #   subject { controller.breadcrumb }
-  #   it { should be_an Crumby::Breadcrumb }
-  # end
+  describe "#crumbs" do
+    subject { controller.crumbs }
+    it { should be_an Crumby::Breadcrumbs }
 
-  # context "#crumb_title" do
-  #   subject { controller }
-  #   it "passthrough arguments to breadcrumb#title" do
-  #     args = stub :args
-  #     subject.breadcrumb.should_receive(:title).with(args)
-  #     subject.crumb_title(args)
-  #   end
-  # end
+    context "different scope" do
+      subject { controller.crumbs(:different) }
+      it { should be_an Crumby::Breadcrumbs }
+      it "should diffrent to default breadcrumbs" do
+        controller.crumbs.should_not equal subject
+      end
+    end
 
-  # context "#add_crumb" do
-  #   subject { controller }
-  #   it "passthrough arguments to breadcrumb#add" do
-  #     args = stub :args
-  #     subject.breadcrumb.should_receive(:add).with(args)
-  #     subject.add_crumb(args)
-  #   end
-  # end
+  end
 
-  # describe "#crumby_items" do
-  #   subject { controller.crumby_items }
+  describe "#add_crumb" do
 
-  #   it { should be_an Array }
+    let(:label) { "Name" }
+    let(:route) { :route }
+    let(:options) { { the_options: true, the_options2: true } }
 
-  #   context "have no items" do
-  #     its(:count) { should be_zero }
-  #   end
+    subject { controller.crumbs }
 
-  #   context "have some items" do
-  #     before :all do
-  #       controller.add_crumb(:test)
-  #     end
+    it "should receive all arguments" do
+      controller.crumbs.should_receive(:add).with(label, route, options)
+      controller.add_crumb(label, route, options)
+    end
 
-  #     its(:count) { should_not be_zero }
-  #   end
-  # end
+    context "with a diffrent scope" do
+      let(:scope) { :a_different }
+      subject { controller.crumbs(scope) }
 
-  # describe "#crumby_title" do
-  #   before :all do
-  #     controller.add_crumb(:first)
-  #     controller.add_crumb(:second)
-  #     controller.add_crumb(:third)
-  #   end
+      it "should receive all arguments" do
+        subject.should_receive(:add).with(label, route, kind_of(Hash))
+        controller.add_crumb(label, route, scope: scope)
+      end
+    end
+  end
 
-  #   context "without name" do
-  #     subject { controller.crumby_title }
-  #     it { should eq "Third » Second" }
-  #   end
+  describe "#crumby_title" do
+    subject { controller.crumbs }
 
-  #   context "with name" do
-  #     subject { controller.crumby_title("Spec-Title") }
-  #     it { should eq "Third » Second » Spec-Title" }
-  #   end
+    it "should call title on breadcrumbs" do
+      controller.crumbs.should_receive(:title).with(no_args)
+      controller.crumby_title
+    end
 
-  #   context "with own divider" do
-  #     subject { controller.crumby_title({ divider: " - "}) }
-  #     it { should eq "Third - Second" }
-  #   end
+    context "with a diffrent scope" do
+      let(:scope) { :a_different }
+      subject { controller.crumbs(scope) }
 
+      it "should call title on breadcrumbs" do
+        subject.should_receive(:title).with(no_args)
+        controller.crumby_title(scope)
+      end
+    end
 
-  #   context "with option skip first true" do
-  #     subject { controller.crumby_title({ skip_first: true}) }
-  #     it { should eq "Third » Second" }
-  #   end
+  end
 
-  #   context "with option skip first false" do
-  #     subject { controller.crumby_title({ skip_first: false}) }
-  #     it { should eq "Third » Second » First" }
-  #   end
-
-  # end
-
-  # describe "#crumby" do
-  #   context ""
-  # end
+  describe "#breadcrumbs" do
+    pending "work in progress"
+  end
 
 end

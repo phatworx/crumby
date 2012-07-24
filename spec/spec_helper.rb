@@ -12,8 +12,6 @@ if ENV['COVERAGE']
   SimpleCov.start do
     add_filter "/spec/"
   end
-  # For rails applications use
-  # SimpleCov.start 'rails'
 end
 
 require 'crumby'

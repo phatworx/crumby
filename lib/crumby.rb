@@ -1,105 +1,89 @@
 # encoding: utf-8
 module Crumby
+  autoload :Breadcrumb, 'crumby/breadcrumb'
+  autoload :Breadcrumbs, 'crumby/breadcrumbs'
+  autoload :Helper, 'crumby/helper'
 
-  class Item < Struct.new(:label, :route, :options)
-  end
+  # module Helper
+  #   extend ActiveSupport::Concern
 
-  module Helper
-    extend ActiveSupport::Concern
+  #   included do
+  #     # if respond_to? :helper_method
+  #     #   helper_method :crumb_title
+  #     # end
+  #   end
 
-    included do
-      if respond_to? :helper_method
-        helper_method :crumby
-        helper_method :crumby_title
-      end
-    end
+  #   # get breadcrumb
+  #   # def breadcrumb(scope = :default)
+  #   #   @breadcrumb_scopes = {} if @breadcrumb_scopes.nil?
+  #   #   @breadcrumb_scopes[scope] ||= Breadcrumbs.new
+  #   # end
 
-    def crumby_items
-      @crumby_items ||= []
-    end
+  #   # def breadcrumbs(*args)
+  #   #   breadcrumbs.render(*args)
+  #   # end
 
-    def add_crumb(*args)
-      options = args.extract_options!
-      if args.empty?
-        raise ArgumentError, "Need arguments."
-      elsif args.count == 1
-        value = args.first
-        if value.is_a? String
-          label = value
-        elsif value.is_a? Symbol
-          label = value.to_s.humanize
-          route = value
-        elsif value.respond_to? :model_name
-          label = value.model_name.human
-          route = value
-        elsif value.kind_of? Array
-          if value.last.respond_to? :model_name
-            label = value.last.model_name.human
-          else
-            label = value.last.to_s.humanize
-          end
-          route = value
-        else
-          label = value.to_s.humanize
-        end
-      else
-        label = args.first
-        route = args.second
-      end
+  #   # # controller helper
+  #   # def add_crumb(*args)
+  #   #   breadcrumb.add *args
+  #   # end
 
-      item = Item.new(label, route, options)
-      crumby_items << item
-      item
-    end
+  #   # # view helper
+  #   # def crumb_title(*args)
+  #   #   breadcrumb.title *args
+  #   # end
 
-    def crumby_title(*args)
-      default_options = {
-        divider: " » ",
-        skip_first: true
-      }
-      options = default_options.merge args.extract_options!
+  #   # def breadcrumb_tail(scope = :default)
 
-      suffix = args.first || nil
+  #   # end
 
-      items = @crumby_items
-      items = items[1..-1] if options[:skip_first]
 
-      title = items.reverse.collect{ |e| e[:label] }
-      title += [suffix] if suffix.present?
-      title.join(options[:divider])
-    end
+  #     # default_options = {
+  #     #   divider: " » ",
+  #     #   skip_first: true
+  #     # }
+  #     # options = default_options.merge args.extract_options!
 
-    def crumby(*args)
-      default_options = {
-        divider: "/",
-        link_last: false,
-        link_first: true
-      }
-      options = default_options.merge args.extract_options!
+  #     # suffix = args.first || nil
 
-      item_count = @crumby_items.count
-      capture_haml do
-        haml_tag :ul, class: "breadcrumb" do
-          @crumby_items.each_with_index do |crumb, cnt|
-            last = (cnt == item_count - 1)
-            first = (cnt == 0)
+  #     # items = @crumby_items
+  #     # items = items[1..-1] if options[:skip_first]
 
-            haml_tag :li, class: (last ? 'active' : nil) do
+  #     # title = items.reverse.collect{ |e| e[:label] }
+  #     # title += [suffix] if suffix.present?
+  #     # title.join(options[:divider])
 
-              if crumb[:route].nil? or (last and not options[:link_last]) or (first and not options[:link_first])
-                haml_concat crumb[:label]
-              else
-                haml_concat link_to(crumb[:label], crumb[:route])
-              end
+  #   # def crumby(*args)
+  #   #   default_options = {
+  #   #     divider: "/",
+  #   #     link_last: false,
+  #   #     link_first: true
+  #   #   }
+  #   #   options = default_options.merge args.extract_options!
 
-              haml_tag "span.divider", options[:divider] unless last
+  #   #   item_count = @crumby_items.count
+  #   #   capture_haml do
+  #   #     haml_tag :ul, class: "breadcrumb" do
+  #   #       @crumby_items.each_with_index do |crumb, cnt|
+  #   #         last = (cnt == item_count - 1)
+  #   #         first = (cnt == 0)
 
-            end
-          end
-        end
-      end
-    end
-  end
+  #   #         haml_tag :li, class: (last ? 'active' : nil) do
+
+  #   #           if crumb[:route].nil? or (last and not options[:link_last]) or (first and not options[:link_first])
+  #   #             haml_concat crumb[:label]
+  #   #           else
+  #   #             haml_concat link_to(crumb[:label], crumb[:route])
+  #   #           end
+
+  #   #           haml_tag "span.divider", options[:divider] unless last
+
+  #   #         end
+  #   #       end
+  #   #     end
+  #   #   end
+  #   # end
+  # end
 
   # module Controller
   #   extend ActiveSupport::Concern

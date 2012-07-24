@@ -8,6 +8,10 @@ module Crumby
       @items = []
     end
 
+    def count
+      items.count
+    end
+
     def add(*args)
       options = args.extract_options!
       if args.empty?
@@ -37,7 +41,7 @@ module Crumby
         route = args.second
       end
 
-      item = Breadcrumb.new(label, route, options)
+      item = Breadcrumb.new(self, count, label, route, options)
       @items << item
       item
     end

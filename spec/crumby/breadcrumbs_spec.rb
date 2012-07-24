@@ -21,7 +21,22 @@ describe Crumby::Breadcrumbs do
 
   end
 
-  describe "#add" do
+  describe "#add 10 breadcrumbs" do
+    before :each do
+      10.times { subject.add :many }
+    end
+
+    its(:count) {should eq 10}
+
+    it "each breadcrumb should have the correct position" do
+      10.times do |position|
+        subject.items[position].position.should eq position
+      end
+    end
+  end
+
+  describe "#add one breadcrumb" do
+
     context "without an argument" do
       it "should get an ArgumentError" do
         expect { subject.add }.to raise_error(ArgumentError)

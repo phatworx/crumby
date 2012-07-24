@@ -104,5 +104,4 @@ module Crumby
   end
 end
 
-ActionController::Base.send :include, Crumby::Controller
-#ApplicationHelper.send :include, Crumby::Helper
+ActionController::Base.send :include, Crumby::Controller if defined? ActionController

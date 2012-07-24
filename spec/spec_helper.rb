@@ -5,6 +5,7 @@ require 'bundler/setup'
 Bundler.require
 
 require 'rspec'
+require 'crumby'
 
 if ENV['COVERAGE']
   require 'simplecov'

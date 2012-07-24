@@ -1,6 +1,9 @@
 # encoding: utf-8
 module Crumby
 
+  class Item < Struct.new(:link, :route, :options)
+  end
+
   module Helper
     extend ActiveSupport::Concern
 

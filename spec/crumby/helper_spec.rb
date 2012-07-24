@@ -20,7 +20,6 @@ describe Crumby::Helper do
         controller.crumbs.should_not equal subject
       end
     end
-
   end
 
   describe "#add_crumb" do

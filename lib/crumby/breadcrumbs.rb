@@ -42,6 +42,20 @@ module Crumby
       item
     end
 
+    def render(*args)
+      options = args.extract_options!
+      renderer = renderer(options[:renderer])
+      renderer.render
+    end
+
+    private
+
+    def renderer(renderer = nil)
+      renderer_class = renderer || Renderer.default_renderer
+      renderer_class.new(self)
+    end
+
+
   end
 
 end

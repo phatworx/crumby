@@ -15,7 +15,7 @@ class DummyModel
 end
 
 describe Crumby::Breadcrumbs do
-  let(:breadcrumb) { Crumby::Breadcrumbs.new }
+  let(:breadcrumbs) { Crumby::Breadcrumbs.new }
 
   describe "#new" do
 
@@ -29,7 +29,7 @@ describe Crumby::Breadcrumbs do
     end
 
     context "with one argument" do
-      subject { breadcrumb.add first_argument }
+      subject { breadcrumbs.add first_argument }
 
       context "that is a string" do
         let(:first_argument) { "example string" }
@@ -76,7 +76,7 @@ describe Crumby::Breadcrumbs do
       let(:label) { "Name" }
       let(:route) { :route }
 
-      subject { breadcrumb.add(label, route) }
+      subject { breadcrumbs.add(label, route) }
 
       its(:label) { should equal label }
       its(:route) { should equal route }
@@ -84,13 +84,13 @@ describe Crumby::Breadcrumbs do
 
     context "with options" do
       let(:options) { { option1: true, option2: false, string: "Text" } }
-      subject { breadcrumb.add(:test, options) }
+      subject { breadcrumbs.add(:test, options) }
       its(:options) { should equal options }
     end
   end
 
   describe "#list" do
-    subject { breadcrumb.items }
+    subject { breadcrumbs.items }
 
     it { should be_an Array }
 
@@ -99,8 +99,36 @@ describe Crumby::Breadcrumbs do
     end
 
     context "have some items" do
-      subject { breadcrumb.add :test }
+      subject { breadcrumbs.add :test }
       its(:count) { should_not be_zero }
     end
   end
+
+  describe '#renderer' do
+    subject { breadcrumbs }
+    context "without an arguments" do
+      it "should return a renderer" do
+        Crumby::Renderer.default_renderer.should_receive(:new).
+          with(subject)#.and_return(Crumby::Renderer.default_renderer.new(subject))
+        subject.send(:renderer)
+      end
+    end
+
+    context "with an renderer class" do
+    end
+  end
+
+  describe "#render" do
+    subject { breadcrumbs }
+    context "without any arguments" do
+      #Crumby::Renderer.default_renderer.should_receive(:new).
+      #  with(subject).and_return(Crumby::Renderer.default_renderer.new(subject))
+      # it "should call default renderer" do
+      #   subject.render
+      # end
+    end
+
+  end
+
+
 end

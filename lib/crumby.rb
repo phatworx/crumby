@@ -1,8 +1,8 @@
-# encoding: utf-8
 module Crumby
   autoload :Breadcrumb, 'crumby/breadcrumb'
   autoload :Breadcrumbs, 'crumby/breadcrumbs'
   autoload :Helper, 'crumby/helper'
+  autoload :Renderer, 'crumby/renderer'
 
   # module Helper
   #   extend ActiveSupport::Concern

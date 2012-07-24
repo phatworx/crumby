@@ -7,6 +7,13 @@ module Crumby
   module Helper
     extend ActiveSupport::Concern
 
+    included do
+      if respond_to? :helper_method
+        helper_method :crumby
+        helper_method :crumby_title
+      end
+    end
+
     def crumby_items
       @crumby_items ||= []
     end
@@ -94,52 +101,52 @@ module Crumby
     end
   end
 
-  module Controller
-    extend ActiveSupport::Concern
+  # module Controller
+  #   extend ActiveSupport::Concern
 
-    module ClassMethods
-    end
+  #   module ClassMethods
+  #   end
 
-    included do
-      helper_method :crumbs
-      helper Crumby::Helper
-    end
+  #   included do
+  #     helper_method :crumbs
+  #     helper Crumby::Helper
+  #   end
 
-    def crumby_items
-      @crumby_items ||= []
-    end
+  #   def crumby_items
+  #     @crumby_items ||= []
+  #   end
 
-    def add_crumb(*args)
-      options = args.extract_options!
-      if args.empty?
-        raise ArgumentError, "Need arguments."
-      elsif args.count == 1
-        value = args.first
-        if value.is_a? String
-          label = value
-        elsif value.is_a? Symbol
-          label = value.to_s.humanize
-          route = value
-        elsif value.respond_to? :model_name
-          label = value.model_name.human
-          route = value
-        elsif value.kind_of? Array
-          if value.last.respond_to? :model_name
-            label = value.last.model_name.human
-          else
-            label = value.last.to_s.humanize
-          end
-          route = value
-        else
-          label = value.to_s.humanize
-        end
-      else
-        label = args.first
-        route = args.second
-      end
-      crumby_items << { label: label, route: route, options: options }
-    end
-  end
+  #   def add_crumb(*args)
+  #     options = args.extract_options!
+  #     if args.empty?
+  #       raise ArgumentError, "Need arguments."
+  #     elsif args.count == 1
+  #       value = args.first
+  #       if value.is_a? String
+  #         label = value
+  #       elsif value.is_a? Symbol
+  #         label = value.to_s.humanize
+  #         route = value
+  #       elsif value.respond_to? :model_name
+  #         label = value.model_name.human
+  #         route = value
+  #       elsif value.kind_of? Array
+  #         if value.last.respond_to? :model_name
+  #           label = value.last.model_name.human
+  #         else
+  #           label = value.last.to_s.humanize
+  #         end
+  #         route = value
+  #       else
+  #         label = value.to_s.humanize
+  #       end
+  #     else
+  #       label = args.first
+  #       route = args.second
+  #     end
+  #     crumby_items << { label: label, route: route, options: options }
+  #   end
+  # end
 end
 
-ActionController::Base.send :include, Crumby::Controller if defined? ActionController
+ActionController::Base.send :include, Crumby::Helper if defined? ActionController

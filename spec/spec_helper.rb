@@ -6,16 +6,17 @@ Bundler.require
 
 require 'rails'
 require 'rspec'
-require 'crumby'
 
 if ENV['COVERAGE']
   require 'simplecov'
-  SimpleCov.start
+  SimpleCov.start do
+    add_filter "/spec/"
+  end
   # For rails applications use
   # SimpleCov.start 'rails'
 end
 
-#require 'crumby'
+require 'crumby'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

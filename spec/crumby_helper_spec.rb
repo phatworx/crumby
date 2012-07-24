@@ -48,6 +48,7 @@ describe Crumby::Helper do
         its(:label) { should eq first_argument.model_name.human }
         its(:route) { should equal first_argument }
       end
+
       context "that is an array of objects" do
         context "last is an object with model_name method" do
           let(:first_argument) { [:admin, DummyModel.new] }
@@ -61,6 +62,12 @@ describe Crumby::Helper do
           its(:route) { should equal first_argument }
         end
 
+      end
+
+      context "that any other type" do
+        let(:first_argument) { 5.5 }
+        its(:label) { should eq first_argument.to_s.humanize }
+        its(:route) { should be_nil }
       end
 
     end

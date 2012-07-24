@@ -7,6 +7,44 @@ module Crumby
   module Helper
     extend ActiveSupport::Concern
 
+    def crumb_items
+      @crumb_items ||= []
+    end
+
+    def add_crumb(*args)
+      options = args.extract_options!
+      if args.empty?
+        raise ArgumentError, "Need arguments."
+      elsif args.count == 1
+        value = args.first
+        if value.is_a? String
+          label = value
+        elsif value.is_a? Symbol
+          label = value.to_s.humanize
+          route = value
+        elsif value.respond_to? :model_name
+          label = value.model_name.human
+          route = value
+        elsif value.kind_of? Array
+          if value.last.respond_to? :model_name
+            label = value.last.model_name.human
+          else
+            label = value.last.to_s.humanize
+          end
+          route = value
+        else
+          label = value.to_s.humanize
+        end
+      else
+        label = args.first
+        route = args.second
+      end
+
+      item = Item.new(label, route, options)
+      crumb_items << item
+      item
+    end
+
     def crumby_title(*args)
       options = args.extract_options!
       options.merge({

@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'bundler/setup'
 Bundler.require
 
+require 'rails'
 require 'rspec'
 require 'crumby'
 

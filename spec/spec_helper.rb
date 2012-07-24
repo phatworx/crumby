@@ -5,6 +5,14 @@ require 'bundler/setup'
 Bundler.require
 
 require 'rspec'
+
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start
+  # For rails applications use
+  # SimpleCov.start 'rails'
+end
+
 #require 'crumby'
 
 # Requires supporting files with custom matchers and macros, etc,

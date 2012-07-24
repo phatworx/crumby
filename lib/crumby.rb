@@ -7,8 +7,8 @@ module Crumby
   module Helper
     extend ActiveSupport::Concern
 
-    def crumb_items
-      @crumb_items ||= []
+    def crumby_items
+      @crumby_items ||= []
     end
 
     def add_crumb(*args)
@@ -41,22 +41,20 @@ module Crumby
       end
 
       item = Item.new(label, route, options)
-      crumb_items << item
+      crumby_items << item
       item
     end
 
     def crumby_title(*args)
-      options = args.extract_options!
-      options.merge({
+      default_options = {
         divider: " » ",
         skip_first: true
-      })
-
-      p options.inspect
+      }
+      options = default_options.merge args.extract_options!
 
       suffix = args.first || nil
 
-      items = @crumb_items
+      items = @crumby_items
       items = items[1..-1] if options[:skip_first]
 
       title = items.reverse.collect{ |e| e[:label] }
@@ -65,18 +63,17 @@ module Crumby
     end
 
     def crumby(*args)
-      options = args.extract_options!
-      options.merge({
+      default_options = {
         divider: "/",
         link_last: false,
         link_first: true
-      })
-      p options.inspect
+      }
+      options = default_options.merge args.extract_options!
 
-      item_count = @crumb_items.count
+      item_count = @crumby_items.count
       capture_haml do
         haml_tag :ul, class: "breadcrumb" do
-          @crumb_items.each_with_index do |crumb, cnt|
+          @crumby_items.each_with_index do |crumb, cnt|
             last = (cnt == item_count - 1)
             first = (cnt == 0)
 
@@ -108,8 +105,8 @@ module Crumby
       helper Crumby::Helper
     end
 
-    def crumb_items
-      @crumb_items ||= []
+    def crumby_items
+      @crumby_items ||= []
     end
 
     def add_crumb(*args)
@@ -140,7 +137,7 @@ module Crumby
         label = args.first
         route = args.second
       end
-      crumb_items << { label: label, route: route, options: options }
+      crumby_items << { label: label, route: route, options: options }
     end
   end
 end

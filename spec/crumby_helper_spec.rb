@@ -1,4 +1,6 @@
+# encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require "active_support/all"
 
 class DummyController
   include Crumby::Helper
@@ -19,7 +21,7 @@ end
 describe Crumby::Helper do
   let(:controller) { DummyController.new }
 
-  context "add a new crumby item" do
+  describe "#add_crumb" do
     context "without an argument" do
       it "should get an ArgumentError" do
         expect { controller.add_crumb }.to raise_error(ArgumentError)
@@ -62,13 +64,79 @@ describe Crumby::Helper do
       end
 
     end
+
+    context "with label and route argument" do
+      let(:label) { "Name" }
+      let(:route) { :route }
+
+      subject { controller.add_crumb(label, route) }
+
+      its(:label) { should equal label }
+      its(:route) { should equal route }
+    end
+
+    context "with options" do
+      let(:options) { { option1: true, option2: false, string: "Text" } }
+      subject { controller.add_crumb(:test, options) }
+      its(:options) { should equal options }
+    end
+
   end
 
-  context "returns page title" do
-    it "test"
+  describe "#crumby_items" do
+    subject { controller.crumby_items }
+
+    it { should be_an Array }
+
+    context "have no items" do
+      its(:count) { should be_zero }
+    end
+
+    context "have some items" do
+      before :all do
+        controller.add_crumb(:test)
+      end
+
+      its(:count) { should_not be_zero }
+    end
   end
-  context "return a list" do
-    it "test"
+
+  describe "#crumby_title" do
+    before :all do
+      controller.add_crumb(:first)
+      controller.add_crumb(:second)
+      controller.add_crumb(:third)
+    end
+
+    context "without name" do
+      subject { controller.crumby_title }
+      it { should eq "Third » Second" }
+    end
+
+    context "with name" do
+      subject { controller.crumby_title("Spec-Title") }
+      it { should eq "Third » Second » Spec-Title" }
+    end
+
+    context "with own divider" do
+      subject { controller.crumby_title({ divider: " - "}) }
+      it { should eq "Third - Second" }
+    end
+
+
+    context "with option skip first true" do
+      subject { controller.crumby_title({ skip_first: true}) }
+      it { should eq "Third » Second" }
+    end
+
+    context "with option skip first false" do
+      subject { controller.crumby_title({ skip_first: false}) }
+      it { should eq "Third » Second » First" }
+    end
+
+  end
+  context "#crumby" do
+    pending "tue es"
   end
 
 end

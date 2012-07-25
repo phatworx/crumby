@@ -8,7 +8,24 @@ module Crumby
       end
 
       def render(*args)
-        options = args.extract_options!
+        options = default_options.merge args.extract_options!
+        render_list(options) do
+          trail.entries.each do |entry|
+            render_entry(entry, options)
+          end
+        end
+      end
+
+      def default_options
+        {}
+      end
+
+      def render_list(options, &block)
+        raise NotImplementedError
+      end
+
+      def render_entry(entry, options)
+        raise NotImplementedError
       end
 
     end

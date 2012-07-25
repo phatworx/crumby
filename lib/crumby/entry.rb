@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Crumby
 
-  class Breadcrumb < Struct.new(:breadcrumbs, :position, :label, :route, :options)
+  class Entry < Struct.new(:breadcrumbs, :position, :label, :route, :options)
     def total
       breadcrumbs.count
     end

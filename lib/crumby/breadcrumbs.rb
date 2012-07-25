@@ -41,7 +41,7 @@ module Crumby
         route = args.second
       end
 
-      item = Breadcrumb.new(self, count, label, route, options)
+      item = Entry.new(self, count, label, route, options)
       @items << item
       item
     end

@@ -1,7 +1,7 @@
 # encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Crumby::Breadcrumb do
+describe Crumby::Entry do
 
   context "#new" do
     let(:breadcrumb_label) { "TestLabel" }
@@ -9,7 +9,7 @@ describe Crumby::Breadcrumb do
     let(:breadcrumb_options) { { test: true } }
     let(:breadcrumbs) { stub :breadcrumbs }
 
-    subject { Crumby::Breadcrumb.new(breadcrumbs, 1, breadcrumb_label, breadcrumb_route, breadcrumb_options) }
+    subject { Crumby::Entry.new(breadcrumbs, 1, breadcrumb_label, breadcrumb_route, breadcrumb_options) }
 
     its(:breadcrumbs) { should equal breadcrumbs }
     its(:position) { should eq 1 }
@@ -22,18 +22,18 @@ describe Crumby::Breadcrumb do
     let(:breadcrumbs) { breadcrumbs = stub :breadcrumbs, count: 10 }
 
     context "any breadcrumb" do
-      subject { Crumby::Breadcrumb.new breadcrumbs, 0, "Test" }
+      subject { Crumby::Entry.new breadcrumbs, 0, "Test" }
       its(:total) { should eq 10 }
     end
 
     context "first breadcrumb" do
-      subject { Crumby::Breadcrumb.new breadcrumbs, 0, "Test" }
+      subject { Crumby::Entry.new breadcrumbs, 0, "Test" }
       its(:first?) { should be_true }
       its(:last?) { should_not be_true }
     end
 
     context "last breadcrumb" do
-      subject { Crumby::Breadcrumb.new breadcrumbs, 9, "Test" }
+      subject { Crumby::Entry.new breadcrumbs, 9, "Test" }
       its(:first?) { should_not be_true }
       its(:last?) { should be_true }
     end

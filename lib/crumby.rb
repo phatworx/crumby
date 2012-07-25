@@ -1,5 +1,5 @@
 module Crumby
-  autoload :Breadcrumb, 'crumby/breadcrumb'
+  autoload :Entry, 'crumby/entry'
   autoload :Breadcrumbs, 'crumby/breadcrumbs'
   autoload :Helper, 'crumby/helper'
   autoload :Renderer, 'crumby/renderer'

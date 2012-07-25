@@ -81,14 +81,9 @@ describe Crumby::Helper do
   end
 
   describe "#crumby" do
-    let (:renderer) { stub :renderer }
-    let (:trail) { stub :trail }
-
-    before :each do
-      renderer.stub(:render)
-      trail.stub(:renderer).and_return(renderer)
-      controller.stub(:crumby_trail).and_return(trail)
-    end
+    let (:renderer) { stub :renderer, render: stub }
+    let (:trail) { stub :trail, renderer: renderer }
+    before { controller.stub(:crumby_trail).and_return(trail) }
 
     context "with default scope" do
       after { controller.crumby }

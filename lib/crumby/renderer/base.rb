@@ -7,6 +7,10 @@ module Crumby
         @breadcrumbs = breadcrumbs
       end
 
+      def render(*args)
+        options = args.extract_options!
+      end
+
     end
   end
 end

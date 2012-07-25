@@ -17,12 +17,10 @@ class DummyModel
 end
 
 describe Crumby::Trail do
-  let(:trail) { Crumby::Trail.new }
+  let(:trail) { Crumby::Trail.new } # use subject
 
-  describe "#add 10 trail" do
-    before :each do
-      10.times { subject.add :many }
-    end
+  context "have 10 entries" do
+    before { 10.times { subject.add :entry } }
 
     its(:count) {should eq 10}
 
@@ -31,9 +29,11 @@ describe Crumby::Trail do
         subject.entries[position].position.should eq position
       end
     end
+
   end
 
-  describe "#add one breadcrumb" do
+
+  describe "#add" do
 
     context "without an argument" do
       it "should get an ArgumentError" do
@@ -82,7 +82,6 @@ describe Crumby::Trail do
         its(:label) { should eq first_argument.to_s.humanize }
         its(:route) { should be_nil }
       end
-
     end
 
     context "with label and route argument" do
@@ -138,7 +137,7 @@ describe Crumby::Trail do
 
     context "with a String" do
       let(:renderer) { "String" }
-      it "raise an argument Error" do
+      it "raise an ArgumentError" do
         expect { subject.send(:renderer, renderer) }.to raise_error(ArgumentError)
       end
     end

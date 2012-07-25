@@ -27,21 +27,22 @@ Gem::Specification.new do |s|
     "VERSION",
     "crumby.gemspec",
     "lib/crumby.rb",
-    "lib/crumby/breadcrumb.rb",
-    "lib/crumby/breadcrumbs.rb",
+    "lib/crumby/entry.rb",
     "lib/crumby/helper.rb",
     "lib/crumby/renderer.rb",
     "lib/crumby/renderer/base.rb",
     "lib/crumby/renderer/haml.rb",
-    "spec/crumby/breadcrumb_spec.rb",
-    "spec/crumby/breadcrumbs_spec.rb",
+    "lib/crumby/trail.rb",
+    "spec/crumby/entry_spec.rb",
     "spec/crumby/helper_spec.rb",
+    "spec/crumby/renderer/base_spec.rb",
+    "spec/crumby/trail_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/phatworx/crumby"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.21"
+  s.rubygems_version = "1.8.10"
   s.summary = "Easy breadcrumb for rails"
 
   if s.respond_to? :specification_version then

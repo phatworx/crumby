@@ -18,8 +18,10 @@ module Crumby
       crumby_trail(scope).add(*args, options)
     end
 
-    def crumby_title(scope = :default)
-      crumby_trail(scope).title
+    def crumby_title(*args)
+      options = args.extract_options!
+      scope = options.delete(:scope) || :default
+      crumby_trail(scope).title(*args, options)
     end
 
     def crumby(*args)

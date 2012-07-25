@@ -8,6 +8,7 @@ end
 
 describe Crumby::Helper do
   let(:controller) { DummyController.new }
+  let(:options) { { the_options: true, the_options2: true } }
 
   describe "#crumby_trail" do
 
@@ -31,16 +32,12 @@ describe Crumby::Helper do
       controller.crumby_trail(:other).should_not equal different_trail
     end
 
-
-
-
   end
 
   describe "#add_crumby" do
 
     let(:label) { "Name" }
     let(:route) { :route }
-    let(:options) { { the_options: true, the_options2: true } }
 
     subject { controller.crumby_trail }
 
@@ -61,22 +58,64 @@ describe Crumby::Helper do
   end
 
   describe "#crumby_title" do
-    subject { controller.crumby_trail }
+    let (:trail) { stub :trail, title: stub }
 
-    it "should call title on trail" do
-      controller.crumby_trail.should_receive(:title).with(no_args)
-      controller.crumby_title
+    before { controller.stub(:crumby_trail).and_return(trail) }
+
+    context "with default scope" do
+      context "without suffix" do
+        after { controller.crumby_title }
+
+        it "should load default trail" do
+          controller.should_receive(:crumby_trail).with(:default)
+        end
+
+        it "should load title without suffix" do
+          trail.should_receive(:title).with(kind_of(Hash))
+        end
+      end
+
+      context "with suffix" do
+        let(:suffix) { "test" }
+        after { controller.crumby_title suffix }
+
+        it "should load title with suffix" do
+          trail.should_receive(:title).with(suffix, kind_of(Hash))
+        end
+      end
+
+      context "with options" do
+        after { controller.crumby_title options }
+
+        it "should load title with options" do
+          trail.should_receive(:title).with(options)
+        end
+      end
+
+
     end
 
-    context "with a diffrent scope" do
-      let(:scope) { :a_different }
-      subject { controller.crumby_trail(scope) }
-
-      it "should call title on trail" do
-        subject.should_receive(:title).with(no_args)
-        controller.crumby_title(scope)
+    context "with different scope" do
+      after { controller.crumby_title scope: :test}
+      it "should load different trail" do
+        controller.should_receive(:crumby_trail).with(:test)
       end
     end
+
+    # it "should call title on trail" do
+    #   controller.crumby_trail.should_receive(:title).with(options)
+    #   controller.crumby_title options
+    # end
+
+    # context "with a diffrent scope" do
+    #   let(:scope) { :a_different }
+    #   subject { controller.crumby_trail(scope) }
+
+    #   it "should call title on trail" do
+    #     subject.should_receive(:title).with(any_args, kind_of(Hash))
+    #     controller.crumby_title(scope, {})
+    #   end
+    # end
 
   end
 

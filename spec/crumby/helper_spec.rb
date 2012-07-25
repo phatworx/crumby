@@ -9,26 +9,26 @@ end
 describe Crumby::Helper do
   let(:controller) { DummyController.new }
 
-  describe "#crumbs" do
+  describe "#crumby_trail" do
 
-    let! (:default_breadcrumbs) { controller.crumbs(:default) }
-    let! (:different_breadcrumbs) { controller.crumbs(:different) }
+    let! (:default_trail) { controller.crumby_trail(:default) }
+    let! (:different_trail) { controller.crumby_trail(:different) }
 
     it "should match default scope with \":default\"" do
-      controller.crumbs(:default).should equal default_breadcrumbs
+      controller.crumby_trail(:default).should equal default_trail
     end
 
     it "should match default scope with \"default\"" do
-      controller.crumbs("default").should equal default_breadcrumbs
+      controller.crumby_trail("default").should equal default_trail
     end
 
     it "should match diffrent scope with \":diffrent\"" do
-      controller.crumbs(:different).should equal different_breadcrumbs
+      controller.crumby_trail(:different).should equal different_trail
     end
 
     it "should not match default or diffrent scope with \":other\"" do
-      controller.crumbs(:other).should_not equal default_breadcrumbs
-      controller.crumbs(:other).should_not equal different_breadcrumbs
+      controller.crumby_trail(:other).should_not equal default_trail
+      controller.crumby_trail(:other).should_not equal different_trail
     end
 
 
@@ -36,43 +36,43 @@ describe Crumby::Helper do
 
   end
 
-  describe "#add_crumb" do
+  describe "#add_crumby" do
 
     let(:label) { "Name" }
     let(:route) { :route }
     let(:options) { { the_options: true, the_options2: true } }
 
-    subject { controller.crumbs }
+    subject { controller.crumby_trail }
 
     it "should receive all arguments" do
-      controller.crumbs.should_receive(:add).with(label, route, options)
-      controller.add_crumb(label, route, options)
+      controller.crumby_trail.should_receive(:add).with(label, route, options)
+      controller.add_crumby(label, route, options)
     end
 
     context "with a diffrent scope" do
       let(:scope) { :a_different }
-      subject { controller.crumbs(scope) }
+      subject { controller.crumby_trail(scope) }
 
       it "should receive all arguments" do
         subject.should_receive(:add).with(label, route, kind_of(Hash))
-        controller.add_crumb(label, route, scope: scope)
+        controller.add_crumby(label, route, scope: scope)
       end
     end
   end
 
   describe "#crumby_title" do
-    subject { controller.crumbs }
+    subject { controller.crumby_trail }
 
-    it "should call title on breadcrumbs" do
-      controller.crumbs.should_receive(:title).with(no_args)
+    it "should call title on trail" do
+      controller.crumby_trail.should_receive(:title).with(no_args)
       controller.crumby_title
     end
 
     context "with a diffrent scope" do
       let(:scope) { :a_different }
-      subject { controller.crumbs(scope) }
+      subject { controller.crumby_trail(scope) }
 
-      it "should call title on breadcrumbs" do
+      it "should call title on trail" do
         subject.should_receive(:title).with(no_args)
         controller.crumby_title(scope)
       end
@@ -80,37 +80,37 @@ describe Crumby::Helper do
 
   end
 
-  describe "#breadcrumbs" do
+  describe "#crumby" do
     let (:renderer) { stub :renderer }
-    let (:breadcrumbs) { stub :breadcrumbs }
+    let (:trail) { stub :trail }
 
     before :each do
       renderer.stub(:render)
-      breadcrumbs.stub(:renderer).and_return(renderer)
-      controller.stub(:crumbs).and_return(breadcrumbs)
+      trail.stub(:renderer).and_return(renderer)
+      controller.stub(:crumby_trail).and_return(trail)
     end
 
     context "with default scope" do
-      after { controller.breadcrumbs }
+      after { controller.crumby }
 
       it "should load crumb" do
-        controller.should_receive(:crumbs).with(:default)
+        controller.should_receive(:crumby_trail).with(:default)
       end
     end
 
     context "with :test scope" do
-      after { controller.breadcrumbs :test }
+      after { controller.crumby :test }
 
       it "should load crumb" do
-        controller.should_receive(:crumbs).with(:test)
+        controller.should_receive(:crumby_trail).with(:test)
       end
     end
 
     context "with default renderer" do
-      after { controller.breadcrumbs }
+      after { controller.crumby }
 
       it "should call renderer" do
-        breadcrumbs.should_receive(:renderer).with(nil)
+        trail.should_receive(:renderer).with(nil)
       end
 
       it "should call render on renderer with options" do
@@ -119,10 +119,10 @@ describe Crumby::Helper do
     end
 
     context "with custom renderer" do
-      after { controller.breadcrumbs renderer: renderer, option: true }
+      after { controller.crumby renderer: renderer, option: true }
 
       it "should call renderer" do
-        breadcrumbs.should_receive(:renderer).with(renderer)
+        trail.should_receive(:renderer).with(renderer)
       end
 
       it "should call render on renderer with options" do
@@ -130,34 +130,5 @@ describe Crumby::Helper do
       end
     end
   end
-
-
-
-
-
-    # it "should call crumbs with scope :default" do
-    #   controller.should_receive(:crumbs).with(:default)
-
-    # end
-
-    # it "should call crumbs with scope :other" do
-    #   controller.should_receive(:crumbs).with(:other)
-    #   controller.breadcrumbs(:other)
-    # end
-
-    # context "with default render" do
-
-    #   it "should call render on default renderer" do
-    #     breadcrumbs.should_receive(:renderer).with(nil)
-    #     controller.breadcrumbs
-    #   end
-
-
-    # end
-
-    # context "with custom" do
-
-    # end
-
 
 end

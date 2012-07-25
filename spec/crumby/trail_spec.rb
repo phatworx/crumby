@@ -16,10 +16,10 @@ class DummyModel
   end
 end
 
-describe Crumby::Breadcrumbs do
-  let(:breadcrumbs) { Crumby::Breadcrumbs.new }
+describe Crumby::Trail do
+  let(:trail) { Crumby::Trail.new }
 
-  describe "#add 10 breadcrumbs" do
+  describe "#add 10 trail" do
     before :each do
       10.times { subject.add :many }
     end
@@ -28,7 +28,7 @@ describe Crumby::Breadcrumbs do
 
     it "each breadcrumb should have the correct position" do
       10.times do |position|
-        subject.items[position].position.should eq position
+        subject.entries[position].position.should eq position
       end
     end
   end
@@ -42,7 +42,7 @@ describe Crumby::Breadcrumbs do
     end
 
     context "with one argument" do
-      subject { breadcrumbs.add first_argument }
+      subject { trail.add first_argument }
 
       context "that is a string" do
         let(:first_argument) { "example string" }
@@ -89,7 +89,7 @@ describe Crumby::Breadcrumbs do
       let(:label) { "Name" }
       let(:route) { :route }
 
-      subject { breadcrumbs.add(label, route) }
+      subject { trail.add(label, route) }
 
       its(:label) { should equal label }
       its(:route) { should equal route }
@@ -97,29 +97,29 @@ describe Crumby::Breadcrumbs do
 
     context "with options" do
       let(:options) { { option1: true, option2: false, string: "Text" } }
-      subject { breadcrumbs.add(:test, options) }
+      subject { trail.add(:test, options) }
       its(:options) { should equal options }
     end
   end
 
-  describe "#items" do
-    subject { breadcrumbs.items }
+  describe "#entries" do
+    subject { trail.entries }
 
     it { should be_an Array }
 
-    context "have no item" do
+    context "have no entry" do
       its(:count) { should be_zero }
     end
 
-    context "have on item" do
-      subject { breadcrumbs.add :test }
+    context "have on entry" do
+      subject { trail.add :test }
       its(:count) { should_not be_zero }
     end
   end
 
   describe '#renderer' do
 
-    subject { breadcrumbs }
+    subject { trail }
 
     context "without an arguments" do
       it "should return default renderer" do
@@ -148,7 +148,7 @@ describe Crumby::Breadcrumbs do
   end
 
   describe "#render" do
-    subject { breadcrumbs }
+    subject { trail }
 
     let(:rendered) { stub :rendered }
     let(:renderer) { stub :renderer }

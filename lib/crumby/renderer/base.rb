@@ -1,10 +1,10 @@
 module Crumby
   module Renderer
     class Base
-      attr_reader :breadcrumbs
+      attr_reader :trail
 
-      def initialize(breadcrumbs)
-        @breadcrumbs = breadcrumbs
+      def initialize(trail)
+        @trail = trail
       end
 
       def render(*args)

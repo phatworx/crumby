@@ -1,9 +1,9 @@
 # encoding: utf-8
 module Crumby
 
-  class Entry < Struct.new(:breadcrumbs, :position, :label, :route, :options)
+  class Entry < Struct.new(:trail, :position, :label, :route, :options)
     def total
-      breadcrumbs.count
+      trail.count
     end
 
     def first?

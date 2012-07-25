@@ -1,15 +1,15 @@
 # encoding: utf-8
 module Crumby
 
-  class Breadcrumbs
-    attr_reader :items
+  class Trail
+    attr_reader :entries
 
     def initialize
-      @items = []
+      @entries = []
     end
 
     def count
-      items.count
+      entries.count
     end
 
     def add(*args)
@@ -41,9 +41,9 @@ module Crumby
         route = args.second
       end
 
-      item = Entry.new(self, count, label, route, options)
-      @items << item
-      item
+      entry = Entry.new(self, count, label, route, options)
+      @entries << entry
+      entry
     end
 
     def render(*args)

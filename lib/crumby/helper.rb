@@ -4,29 +4,29 @@ module Crumby
   module Helper
     extend ActiveSupport::Concern
 
-    def crumbs(scope = :default)
+    def crumby_trail(scope = :default)
       raise ArgumentError if scope.nil?
       scope = scope.to_sym
 
-      @crumbs = {} if @crumbs.nil?
-      @crumbs[scope] ||= Crumby::Breadcrumbs.new
+      @crumby_trails = {} if @crumby_trails.nil?
+      @crumby_trails[scope] ||= Crumby::Trail.new
     end
 
-    def add_crumb(*args)
+    def add_crumby(*args)
       options = args.extract_options!
       scope = options.delete(:scope) || :default
-      crumbs(scope).add(*args, options)
+      crumby_trail(scope).add(*args, options)
     end
 
     def crumby_title(scope = :default)
-      crumbs(scope).title
+      crumby_trail(scope).title
     end
 
-    def breadcrumbs(*args)
+    def crumby(*args)
       options = args.extract_options!
       renderer = options.delete(:renderer)
       scope = args.first || :default
-      crumbs(scope).renderer(renderer).render(options)
+      crumby_trail(scope).renderer(renderer).render(options)
     end
 
   end

@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Christoph Chilian"]
-  s.date = "2012-07-25"
-  s.description = "Easy breadcrumb for rails"
-  s.email = "dev@cc-web.eu"
+  s.authors = ["Marco Scholl"]
+  s.date = "2012-07-26"
+  s.description = "A simple breadcrumb plugin for rails"
+  s.email = "develop@marco-scholl.de"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -29,6 +29,8 @@ Gem::Specification.new do |s|
     "lib/crumby.rb",
     "lib/crumby/entry.rb",
     "lib/crumby/helper.rb",
+    "lib/crumby/helper/controller.rb",
+    "lib/crumby/helper/view.rb",
     "lib/crumby/renderer.rb",
     "lib/crumby/renderer/base.rb",
     "lib/crumby/renderer/haml.rb",
@@ -43,7 +45,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
-  s.summary = "Easy breadcrumb for rails"
+  s.summary = "A simple breadcrumb plugin for rails"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

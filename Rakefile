@@ -9,10 +9,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "crumby"
   gem.homepage = "http://github.com/phatworx/crumby"
   gem.license = "MIT"
-  gem.summary = %Q{Easy breadcrumb for rails}
-  gem.description = %Q{Easy breadcrumb for rails}
-  gem.email = "dev@cc-web.eu"
-  gem.authors = ["Christoph Chilian"]
+  gem.summary = %Q{A simple breadcrumb plugin for rails}
+  gem.description = %Q{A simple breadcrumb plugin for rails}
+  gem.email = "develop@marco-scholl.de"
+  gem.authors = ["Marco Scholl"]
   gem.files.exclude 'spec'
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)

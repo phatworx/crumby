@@ -1,9 +1,35 @@
-= crumby
+= Crumby
+A simple breadcrumb plugin for rails
 
-Description goes here.
+Caution: WIP!!!
 
-== Contributing to crumby
- 
+== Installation
+add to Gemfile
+  gem 'crumby'
+
+== Configuration
+
+  TODO
+
+== Requirements
+
+* Rails 3 (http://github.com/rails/rails)
+
+== Example
+
+  TODO
+
+== History
+
+ * 0.1 init
+
+== Maintainers
+
+* Team Phatworx (http://github.com/phatworx)
+* Marco Scholl (http://github.com/traxanos)
+
+== Contributing to Crumby
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -14,6 +40,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Christoph Chilian. See LICENSE.txt for
-further details.
-
+Copyright (c) 2012 Marco Scholl. See LICENSE.txt for further details.

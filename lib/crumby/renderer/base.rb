@@ -1,17 +1,19 @@
+# encoding: utf-8
 module Crumby
   module Renderer
     class Base
-      attr_reader :trail
+      attr_reader :view, :trail, :options
 
-      def initialize(trail)
+      def initialize(trail, view, options)
         @trail = trail
+        @view = view
+        @options = default_options.merge options
       end
 
       def render(*args)
-        options = default_options.merge args.extract_options!
-        render_list(options) do
+        render_list do
           trail.entries.each do |entry|
-            render_entry(entry, options)
+            render_entry(entry)
           end
         end
       end
@@ -20,11 +22,11 @@ module Crumby
         {}
       end
 
-      def render_list(options, &block)
+      def render_list(&block)
         raise NotImplementedError
       end
 
-      def render_entry(entry, options)
+      def render_entry(entry)
         raise NotImplementedError
       end
 

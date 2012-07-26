@@ -1,6 +1,8 @@
+# encoding: utf-8
 module Crumby
   module Renderer
     class Haml < Base
+      include ::Haml::Helpers
 
       def default_options
         {
@@ -10,22 +12,22 @@ module Crumby
         }
       end
 
-      def render_list(options, &block)
-        capture_haml do
-          haml_tag :ul, class: "breadcrumb" do
+      def render_list(&block)
+        view.capture_haml do
+          view.haml_tag :ul, class: "breadcrumb" do
             yield
           end
         end
       end
 
-      def render_entry(entry, options)
-        haml_tag :li, class: (entry.last? ? 'active' : nil) do
+      def render_entry(entry)
+        view.haml_tag :li, class: (entry.last? ? 'active' : nil) do
           if entry.route.nil? or (entry.last? and not options[:link_last]) or (entry.first? and not options[:link_first])
-            haml_concat entry.label
+            view.haml_concat entry.label
           else
-            haml_concat link_to(entry.label, entry.route)
+            view.haml_concat view.link_to(entry.label, entry.route)
           end
-          haml_tag "span.divider", options[:divider] unless entry.last?
+          view.haml_tag "span.divider", options[:divider] unless entry.last?
         end
       end
 

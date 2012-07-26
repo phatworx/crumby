@@ -48,16 +48,30 @@ module Crumby
 
     def render(*args)
       options = args.extract_options!
-      renderer_instance = renderer(options[:renderer])
-      renderer_instance.render(options)
-    end
-
-    def renderer(renderer = nil)
-      renderer_class = renderer || Renderer.default_renderer
+      renderer_class = options[:renderer] || Renderer.default_renderer
       raise ArgumentError if not renderer_class.class == Class or not renderer_class.ancestors.include? Crumby::Renderer::Base
-      renderer_class.new(self)
+      view = args.first
+      renderer_class.new(self, view, options).render
     end
 
+    def title(*args)
+      options = args.extract_options!
+      suffix = args.first
+
+      default_options = {
+        divider: " » ",
+        reverse: true,
+        skip_first: true
+      }
+      options = default_options.merge args.extract_options!
+
+      title_entries = entries
+      title_entries = title_entries[1..-1] if options[:skip_first]
+
+      title = title_entries.reverse.collect{ |e| e[:label] }
+      title += [suffix] if suffix.present?
+      title.join(options[:divider])
+    end
 
   end
 

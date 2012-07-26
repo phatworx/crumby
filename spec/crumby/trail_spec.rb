@@ -123,35 +123,35 @@ describe Crumby::Trail do
     end
   end
 
-  describe '#renderer' do
+  # describe '#renderer' do
 
-    subject { trail }
+  #   subject { trail }
 
-    context "without an arguments" do
-      it "should return default renderer" do
-        Crumby::Renderer.default_renderer.should_receive(:new).with(subject)
-        subject.send(:renderer)
-      end
-    end
+  #   context "without an arguments" do
+  #     it "should return default renderer" do
+  #       Crumby::Renderer.default_renderer.should_receive(:new).with(subject)
+  #       subject.send(:renderer)
+  #     end
+  #   end
 
-    context "with a DummyRenderer renderer" do
-      let(:renderer) { DummyRenderer }
-      it "should return the DummyRenderer renderer" do
-        renderer.should_receive(:new).with(subject)
-        subject.send(:renderer, renderer)
-      end
-    end
+  #   context "with a DummyRenderer renderer" do
+  #     let(:renderer) { DummyRenderer }
+  #     it "should return the DummyRenderer renderer" do
+  #       renderer.should_receive(:new).with(subject)
+  #       subject.send(:renderer, renderer)
+  #     end
+  #   end
 
-    context "with a String" do
-      let(:renderer) { "String" }
-      it "raise an ArgumentError" do
-        expect { subject.send(:renderer, renderer) }.to raise_error(ArgumentError)
-      end
-    end
+  #   context "with a String" do
+  #     let(:renderer) { "String" }
+  #     it "raise an ArgumentError" do
+  #       expect { subject.send(:renderer, renderer) }.to raise_error(ArgumentError)
+  #     end
+  #   end
 
-    context "with an renderer class" do
-    end
-  end
+  #   context "with an renderer class" do
+  #   end
+  # end
 
   # describe "#render" do
 

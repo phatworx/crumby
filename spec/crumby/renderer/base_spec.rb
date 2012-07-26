@@ -3,6 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Crumby::Renderer::Base do
   let(:trail) { stub :trail }
+  let(:view) { stub :view }
+  let(:options) { stub :options }
   subject { Crumby::Renderer::Base.new(trail) }
 
   describe "#new" do

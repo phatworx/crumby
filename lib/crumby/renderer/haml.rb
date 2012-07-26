@@ -2,7 +2,6 @@
 module Crumby
   module Renderer
     class Haml < Base
-      include ::Haml::Helpers
 
       def default_options
         {

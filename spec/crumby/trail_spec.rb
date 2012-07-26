@@ -153,55 +153,55 @@ describe Crumby::Trail do
     end
   end
 
-  describe "#render" do
+  # describe "#render" do
 
 
-    context "with default renderer" do
-      after { trail.render }
+  #   context "with default renderer" do
+  #     after { trail.render }
 
-      it "should load default renderer" do
-        trail.should_receive(:renderer).with(nil).and_return(renderer)
-      end
-    end
+  #     it "should load default renderer" do
+  #       trail.should_receive(:renderer).with(nil).and_return(renderer)
+  #     end
+  #   end
 
-    context "with custom renderer" do
-      after { trail.render renderer: DummyRenderer }
+  #   context "with custom renderer" do
+  #     after { trail.render renderer: DummyRenderer }
 
-      it "should load custom renderer" do
-        trail.should_receive(:renderer).with(DummyRenderer).and_return(renderer)
-      end
-    end
-  end
+  #     it "should load custom renderer" do
+  #       trail.should_receive(:renderer).with(DummyRenderer).and_return(renderer)
+  #     end
+  #   end
+  # end
 
-  describe "#renderer" do
-    it "should raise ArgumentError with String class" do
-      expect {
-        trail.renderer String
-      }.to raise_error ArgumentError
-    end
+  # describe "#renderer" do
+  #   it "should raise ArgumentError with String class" do
+  #     expect {
+  #       trail.renderer String
+  #     }.to raise_error ArgumentError
+  #   end
 
-    it "should raise ArgumentError with instance of String" do
-      expect {
-        trail.renderer "String"
-      }.to raise_error ArgumentError
-    end
+  #   it "should raise ArgumentError with instance of String" do
+  #     expect {
+  #       trail.renderer "String"
+  #     }.to raise_error ArgumentError
+  #   end
 
-    context "without renderer" do
-      after { trail.renderer }
+  #   context "without renderer" do
+  #     after { trail.renderer }
 
-      it "should return instance of default renderer with trail" do
-        Crumby::Renderer.default_renderer.should_receive(:new).with(trail)
-      end
-    end
+  #     it "should return instance of default renderer with trail" do
+  #       Crumby::Renderer.default_renderer.should_receive(:new).with(trail)
+  #     end
+  #   end
 
-    context "with custom renderer" do
-      after { trail.renderer DummyRenderer }
+  #   context "with custom renderer" do
+  #     after { trail.renderer DummyRenderer }
 
-      it "should return instance of DummyRenderer with trail" do
-        DummyRenderer.should_receive(:new).with(trail)
-      end
-    end
-  end
+  #     it "should return instance of DummyRenderer with trail" do
+  #       DummyRenderer.should_receive(:new).with(trail)
+  #     end
+  #   end
+  # end
 
 
 end

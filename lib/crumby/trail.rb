@@ -48,7 +48,7 @@ module Crumby
 
     def render(*args)
       options = args.extract_options!
-      renderer_class = options[:renderer] || Renderer.default_renderer
+      renderer_class = options[:renderer] || Crumby.renderer
       raise ArgumentError if not renderer_class.class == Class or not renderer_class.ancestors.include? Crumby::Renderer::Base
       view = args.first
       renderer_class.new(self, view, options).render

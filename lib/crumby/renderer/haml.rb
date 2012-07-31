@@ -1,5 +1,6 @@
 # encoding: utf-8
 module Crumby::Renderer
+  # haml renderer
   class Haml < Base
 
     # @return [Hash] default options for this renderer

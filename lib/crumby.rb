@@ -14,6 +14,7 @@ module Crumby
 
   class << self
     # configure crumby
+    # @example
     #   Crumby.configure do
     #     # configure the default renderer
     #     # renderer = Renderer::Haml

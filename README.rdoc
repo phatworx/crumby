@@ -1,8 +1,6 @@
 = Crumby
 A simple breadcrumb plugin for rails
 
-Caution: WIP!!!
-
 == Installation
 add to Gemfile
   gem 'crumby'
@@ -20,31 +18,54 @@ add to Gemfile
 
 == Example
 
-Integration into controller
-  class Addmin::BookController < ApplicationController
+=== controller
+you can add entries global by before_filter and in each methods/actions
 
+  class Addmin::BookController < ApplicationController
     before_filter { add_crumby "Dashboard", :root }
     before_filter { add_crumby "Admin", :admin_root }
-
     def index
       add_crumby [:admin, :books]
     end
-
     def show
       add_crumby [:admin, @book]
     end
   end
 
-Integration into a haml layout
+=== layout
   %html
     %head
       %title= crumby_title "The Admin App"
     %body
       #breadcrumb= crumby
 
+=== add_crumby
+add a new entry into breadcrumb trail
+
+  add_crumby :books
+  add_crumby @book
+  add_crumby [:admin, @book]
+  add_crumby "Books", :admin_books
+  add_crumby "Books", [:admin,:books]
+  add_crumby "Book", [:admin, @book]
+  add_crumby "Google", "http://google.de"
+
+=== scopes
+You can use scopes to have more than one breadcrumb
+:subcrumy is equal to "subcrumb"
+
+  add_crumby :books, scope: :subcrumb
+  add_crumby :books, scope: "subcrumb"
+  crumby :subcrumb
+  crumby "subcrumb"
+
 == History
 
- * 0.1 init
+* 0.1 first release
+
+== Roadmap
+
+* Complete all specs
 
 == Maintainers
 

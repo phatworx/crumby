@@ -1,10 +1,11 @@
-module Crumby
-  module Renderer
-    autoload :Base, 'crumby/renderer/base'
-    autoload :Haml, 'crumby/renderer/haml'
+# renderer package
+module Crumby::Renderer
+  autoload :Base, 'crumby/renderer/base'
+  autoload :Haml, 'crumby/renderer/haml'
 
-    def self.default_renderer
-      Haml
-    end
+  # Returns the default renderer
+  # @return [Crumby::Renderer::Base]
+  def self.default_renderer
+    Crumby.renderer
   end
 end

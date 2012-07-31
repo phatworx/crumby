@@ -9,7 +9,10 @@ add to Gemfile
 
 == Configuration
 
-  TODO
+  Crumby.configure do
+    # configure the default renderer
+    # renderer = Renderer::Haml
+  end
 
 == Requirements
 
@@ -17,7 +20,27 @@ add to Gemfile
 
 == Example
 
-  TODO
+Integration into controller
+  class Addmin::BookController < ApplicationController
+
+    before_filter { add_crumby "Dashboard", :root }
+    before_filter { add_crumby "Admin", :admin_root }
+
+    def index
+      add_crumby [:admin, :books]
+    end
+
+    def show
+      add_crumby [:admin, @book]
+    end
+  end
+
+Integration into a haml layout
+  %html
+    %head
+      %title= crumby_title "The Admin App"
+    %body
+      #breadcrumb= crumby
 
 == History
 

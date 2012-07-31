@@ -85,6 +85,10 @@ module Crumby
     end
 
     # build a title of trail e.g. for page title
+    # @example
+    #   title
+    #   title "The Site"
+    #   title "The Site", divider: " - "
     # @overload title(suffix, options)
     #   @param [String] suffix last item.
     #   @param [Hash] options

@@ -22,10 +22,10 @@ module Crumby::Helper
     # @see Crumby::Trail#render
     # @see Crumby::Renderer::Base
     # @overload crumby(options)
-    #   @param [Hash] options passsthrough to Trail#render
+    #   @param [Hash] options passthrough to Trail#render
     # @overload crumby(scope, options)
     #   @param [Symbol, String] scope scope of trail
-    #   @param [Hash] options passsthrough to Trail#render
+    #   @param [Hash] options passthrough to Trail#render
     def add_crumby(*args)
       options = args.extract_options!
       scope = options.delete(:scope) || :default
@@ -36,10 +36,12 @@ module Crumby::Helper
     # render trail
     # @see Crumby::Trail#title
     # @overload crumby(options)
-    #   @param [Hash] options passsthrough to Crumby::Trail#title
-    # @overload crumby(scope, options)
-    #   @param [Symbol, String] scope scope of trail
-    #   @param [Hash] options passsthrough to Crumby::Trail#title
+    #   @param [Hash] options passthrough to Crumby::Trail#title
+    #   @option options [String, Symbol] :scope extract scope from options before passthrough
+    # @overload crumby(suffix, options)
+    #   @param [String] suffix passthrough to Crumby::Trail#title
+    #   @param [Hash] options passthrough to Crumby::Trail#title
+    #   @option options [String, Symbol] :scope extract scope from options before passthrough
     def crumby_title(*args)
       options = args.extract_options!
       scope = options.delete(:scope) || :default

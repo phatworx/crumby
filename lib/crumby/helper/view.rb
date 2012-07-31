@@ -7,10 +7,10 @@ module Crumby::Helper
     # @see Crumby::Renderer::Base
     # @overload crumby(options)
     #   @param [Hash] options
-    #   @param [Hash] options passsthrough to renderer
+    #   @param [Hash] options passthrough to renderer
     # @overload crumby(scope, options)
     #   @param [Symbol, String] scope scope of breadcrumb
-    #   @param [Hash] options passsthrough to renderer
+    #   @param [Hash] options passthrough to renderer
     def crumby(*args)
       options = args.extract_options!
       scope = args.first || :default

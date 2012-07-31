@@ -111,7 +111,7 @@ module Crumby
       title_entries = entries
       title_entries = title_entries[1..-1] if options[:skip_first]
 
-      if title_entries.count > 0
+      if not title_entries.nil? and title_entries.count > 0
         title = title_entries.reverse.collect{ |e| e[:label] }
         title += [suffix] if suffix.present?
         title.join(options[:divider])

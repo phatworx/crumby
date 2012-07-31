@@ -27,7 +27,7 @@ module Crumby::Renderer
     def render_entry(entry)
       view.haml_tag :li, class: (entry.last? ? 'active' : nil) do
         if entry.route.nil? or (entry.last? and not options[:link_last]) or (entry.first? and not options[:link_first])
-          view.haml_concat entry.label
+          view.haml_tag :span, entry.label
         else
           view.haml_concat view.link_to(entry.label, entry.route)
         end

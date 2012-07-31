@@ -61,7 +61,7 @@ You can use scopes to have more than one breadcrumb
 
 == History
 
-* 0.1 first release
+* 1.1.0 first release
 
 == Roadmap
 

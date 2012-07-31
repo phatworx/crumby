@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "crumby"
-  s.version = "0.0.1"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marco Scholl"]
-  s.date = "2012-07-26"
+  s.date = "2012-07-31"
   s.description = "A simple breadcrumb plugin for rails"
   s.email = "develop@marco-scholl.de"
   s.extra_rdoc_files = [
@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/phatworx/crumby"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.24"
   s.summary = "A simple breadcrumb plugin for rails"
 
   if s.respond_to? :specification_version then

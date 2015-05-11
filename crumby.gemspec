@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "crumby"
-  s.version = "1.1.3"
+  s.version = "1.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marco Scholl"]
-  s.date = "2014-05-11"
+  s.date = "2015-05-11"
   s.description = "A simple breadcrumb plugin for rails"
   s.email = "develop@marco-scholl.de"
   s.extra_rdoc_files = [

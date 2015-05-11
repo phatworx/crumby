@@ -98,6 +98,7 @@ module Crumby
     #
     # @return [String] build title. e.g New Book » Books » Admin
     def title(*args)
+      options = args.extract_options!
       suffix = args.first
 
       default_options = {
@@ -105,7 +106,7 @@ module Crumby
         reverse: true,
         skip_first: true
       }
-      options = default_options.merge args.extract_options!
+      options = default_options.merge options
 
       title_entries = entries
       title_entries = title_entries[1..-1] if options[:skip_first]

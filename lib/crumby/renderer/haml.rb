@@ -31,7 +31,7 @@ module Crumby::Renderer
         else
           view.haml_concat view.link_to(entry.label, entry.route)
         end
-        view.haml_tag "span.divider", options[:divider] unless entry.last?
+        view.haml_tag "span.divider", options[:divider] if not entry.last? and not options[:divider].is_a?(FalseClass)
       end
     end
 

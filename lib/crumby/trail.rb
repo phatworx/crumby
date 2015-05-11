@@ -98,7 +98,6 @@ module Crumby
     #
     # @return [String] build title. e.g New Book » Books » Admin
     def title(*args)
-      options = args.extract_options!
       suffix = args.first
 
       default_options = {

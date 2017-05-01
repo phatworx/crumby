@@ -21,7 +21,7 @@ add to Gemfile
 === controller
 you can add entries global by before_filter and in each methods/actions
 
-  class Addmin::BookController < ApplicationController
+  class Admin::BookController < ApplicationController
     before_filter { add_crumby "Dashboard", :root }
     before_filter { add_crumby "Admin", :admin_root }
     def index
